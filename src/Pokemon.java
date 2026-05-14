@@ -80,6 +80,15 @@ public class Pokemon implements Serializable {
         }
     }
 
+    // dificultad
+    public void subirNivelIA(
+            int nivelDeseado) {
+
+        while (nivel < nivelDeseado) {
+
+            subirNivel();
+        }
+    }
     // ==========================
     // ATAQUES POR NIVEL
     // ==========================
@@ -394,7 +403,7 @@ public class Pokemon implements Serializable {
 
                         nivel
                 );
-
+copia.hp = hp;
         copia.experiencia =
                 experiencia;
 

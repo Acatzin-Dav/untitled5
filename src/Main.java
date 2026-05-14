@@ -166,17 +166,127 @@ public class Main {
                     "\nTURNO JUGADOR 1"
             );
 
+            System.out.println(
+                    "1. Atacar"
+            );
+
+            System.out.println(
+                    "2. Cambiar Pokemon"
+            );
+
+            int accion1 =
+                    sc.nextInt();
+
+// CAMBIAR
+
+            if (accion1 == 2) {
+
+                indice1 =
+                        cambiarPokemon(
+                                jugador1,
+                                indice1
+                        );
+
+                continue;
+            }
+
+// ATAQUES
+
             poke1.mostrarAtaques();
 
             int ataque1 =
                     sc.nextInt() - 1;
 
-            poke1.atacar(
-                    poke2,
-                    ataque1
+            // ==========================
+// TURNO JUGADOR 2
+// ==========================
+
+            System.out.println(
+                    "\nTURNO JUGADOR 2"
             );
 
-            // DERROTA
+            System.out.println(
+                    "1. Atacar"
+            );
+
+            System.out.println(
+                    "2. Cambiar Pokemon"
+            );
+
+            int accion2 =
+                    sc.nextInt();
+
+// CAMBIAR
+
+            if (accion2 == 2) {
+
+                indice2 =
+                        cambiarPokemon(
+                                jugador2,
+                                indice2
+                        );
+
+                continue;
+            }
+
+// ATAQUES
+
+            poke2.mostrarAtaques();
+
+            int ataque2 =
+                    sc.nextInt() - 1;
+
+// ==========================
+// VELOCIDAD
+// ==========================
+
+// JUGADOR 1 MAS RAPIDO
+
+            if (poke1.velocidad
+                    >=
+                    poke2.velocidad) {
+
+                poke1.atacar(
+                        poke2,
+                        ataque1
+                );
+
+                // SI SOBREVIVE
+
+                if (poke2.hp > 0) {
+
+                    poke2.atacar(
+                            poke1,
+                            ataque2
+                    );
+                }
+            }
+
+// JUGADOR 2 MAS RAPIDO
+
+            else {
+
+                poke2.atacar(
+                        poke1,
+                        ataque2
+                );
+
+                // SI SOBREVIVE
+
+                if (poke1.hp > 0) {
+
+                    poke1.atacar(
+                            poke2,
+                            ataque1
+                    );
+                }
+            }
+
+// ==========================
+// DERROTAS
+// ==========================
+
+// JUGADOR 2
 
             if (poke2.hp <= 0) {
 
@@ -186,7 +296,8 @@ public class Main {
                                 " derrotado"
                 );
 
-                poke1.ganarExperiencia(
+                repartirExperiencia(
+                        jugador1,
                         120
                 );
 
@@ -195,25 +306,7 @@ public class Main {
                 continue;
             }
 
-            // ==========================
-            // TURNO JUGADOR 2
-            // ==========================
-
-            System.out.println(
-                    "\nTURNO JUGADOR 2"
-            );
-
-            poke2.mostrarAtaques();
-
-            int ataque2 =
-                    sc.nextInt() - 1;
-
-            poke2.atacar(
-                    poke1,
-                    ataque2
-            );
-
-            // DERROTA
+// JUGADOR 1
 
             if (poke1.hp <= 0) {
 
@@ -223,7 +316,8 @@ public class Main {
                                 " derrotado"
                 );
 
-                poke2.ganarExperiencia(
+                repartirExperiencia(
+                        jugador2,
                         120
                 );
 
@@ -301,7 +395,7 @@ public class Main {
 
                 new Ataque(
                         "ascuas",
-                        60,
+                        30,
                         Tipo.FUEGO
                 )
         );
@@ -314,27 +408,27 @@ public class Main {
 
                 new Ataque(
                         "brasas",
-                        3,
+                        40,
                         Tipo.FUEGO
                 )
         );
         fennekin.agregarAtaquePorNivel(
 
-                2,
+                3,
 
                 new Ataque(
                         "lanzallamas",
-                        3001,
+                        90,
                         Tipo.FUEGO
                 )
         );
         fennekin.agregarAtaquePorNivel(
 
-                2,
+                4,
 
                 new Ataque(
                         "fuego mistico",
-                        3001,
+                        110,
                         Tipo.FUEGO
                 )
         );
@@ -355,30 +449,30 @@ public class Main {
         litten.nivelEvolucion = 2;
         litten.evolucion2 = "incineroar";
         litten.NivelEvolucion2 = 3;
-        litten.agregarAtaque(new Ataque("colmillo igneo", 40, Tipo.FUEGO));
+        litten.agregarAtaque(new Ataque("colmillo igneo", 25, Tipo.FUEGO));
 
         litten.agregarAtaquePorNivel(
                 2,
                 new Ataque("lariat oscuro", 50, Tipo.FUEGO)
         );
         litten.agregarAtaquePorNivel(
-                2,
-                new Ataque("evite igneo", 50, Tipo.FUEGO)
+                3,
+                new Ataque("evite igneo", 60, Tipo.FUEGO)
         );
         litten.agregarAtaquePorNivel(
-                2,
-                new Ataque("nitrocarga", 50, Tipo.FUEGO)
+                4,
+                new Ataque("nitrocarga", 100, Tipo.FUEGO)
         );
         lista.add(litten);
         Pokemon snivy = new Pokemon(
                 "snivy", Tipo.PLANTA, 45, 45, 55, 63, 1
         );
         snivy.agregarAtaque(
-                new Ataque("latigo cepa", 88, Tipo.PLANTA)
+                new Ataque("latigo cepa", 20, Tipo.PLANTA)
         );
-        snivy.agregarAtaquePorNivel(2, new Ataque("hoja magica", 50, Tipo.PLANTA));
-        snivy.agregarAtaquePorNivel(2, new Ataque("gigadrenado", 50, Tipo.PLANTA));
-        snivy.agregarAtaquePorNivel(2, new Ataque("lluevehojas", 50, Tipo.PLANTA));
+        snivy.agregarAtaquePorNivel(2, new Ataque("hoja magica", 40, Tipo.PLANTA));
+        snivy.agregarAtaquePorNivel(3, new Ataque("gigadrenado", 57, Tipo.PLANTA));
+        snivy.agregarAtaquePorNivel(4, new Ataque("lluevehojas", 99, Tipo.PLANTA));
         snivy.evolucion = "servine";
         snivy.nivelEvolucion = 2;
         snivy.evolucion2 = "serperior";
@@ -388,21 +482,21 @@ public class Main {
                 "ferroverdor", Tipo.PLANTA, 90, 130, 88, 104, 1
         );
         ferroverdor.agregarAtaque(
-                new Ataque("hoja afilada", 88, Tipo.PLANTA)
+                new Ataque("hoja afilada", 50, Tipo.PLANTA)
         );
-        ferroverdor.agregarAtaquePorNivel(2, new Ataque("hoja aguda", 50, Tipo.PLANTA));
-        ferroverdor.agregarAtaquePorNivel(2, new Ataque("psicohojas", 50, Tipo.PLANTA));
-        ferroverdor.agregarAtaquePorNivel(2, new Ataque("cuchillasolar", 50, Tipo.PLANTA));
+        ferroverdor.agregarAtaquePorNivel(2, new Ataque("hoja aguda", 60, Tipo.PLANTA));
+        ferroverdor.agregarAtaquePorNivel(3, new Ataque("psicohojas", 65, Tipo.PSIQUICO));
+        ferroverdor.agregarAtaquePorNivel(4, new Ataque("cuchillasolar", 90, Tipo.PLANTA));
         lista.add(ferroverdor);
         Pokemon capsakid = new Pokemon(
                 "capsakid", Tipo.PLANTA, 50, 62, 40, 50, 1
         );
         capsakid.agregarAtaque(
-                new Ataque("follaje", 88, Tipo.PLANTA)
+                new Ataque("follaje", 15, Tipo.PLANTA)
         );
-        capsakid.agregarAtaquePorNivel(2, new Ataque("bala semilla", 50, Tipo.PLANTA));
-        capsakid.agregarAtaquePorNivel(2, new Ataque("mordida", 50, Tipo.PLANTA));
-        capsakid.agregarAtaquePorNivel(2, new Ataque("extracto picante", 50, Tipo.PLANTA));
+        capsakid.agregarAtaquePorNivel(2, new Ataque("bala semilla", 30, Tipo.PLANTA));
+        capsakid.agregarAtaquePorNivel(3, new Ataque("mordida", 45, Tipo.PLANTA));
+        capsakid.agregarAtaquePorNivel(4, new Ataque("extracto picante", 87, Tipo.FUEGO));
         capsakid.evolucion = "scovillain";
         capsakid.nivelEvolucion = 2;
         lista.add(capsakid);
@@ -410,31 +504,31 @@ public class Main {
                 "falinks", Tipo.LUCHA, 65, 100, 100, 75, 1
         );
         falinks.agregarAtaque(
-                new Ataque("chiquipatada", 88, Tipo.LUCHA)
+                new Ataque("chiquipatada", 20, Tipo.LUCHA)
         );
-        falinks.agregarAtaquePorNivel(2, new Ataque("drenadoras", 50, Tipo.PLANTA));
-        falinks.agregarAtaquePorNivel(2, new Ataque("drenadoras", 50, Tipo.PLANTA));
-        falinks.agregarAtaquePorNivel(2, new Ataque("drenadoras", 50, Tipo.PLANTA));
+        falinks.agregarAtaquePorNivel(2, new Ataque("GOLPE ROCA", 45, Tipo.LUCHA));
+        falinks.agregarAtaquePorNivel(3, new Ataque("KARATAZO", 66, Tipo.LUCHA));
+        falinks.agregarAtaquePorNivel(4, new Ataque("CUERPO A CUERPO", 90, Tipo.LUCHA));
         lista.add(falinks);
         Pokemon tauros = new Pokemon(
                 "tauros", Tipo.LUCHA, 75, 100, 95, 110, 1
         );
         tauros.agregarAtaque(
-                new Ataque("chiquipatada", 88, Tipo.LUCHA)
+                new Ataque("doble patada", 30, Tipo.LUCHA)
         );
-        tauros.agregarAtaquePorNivel(2, new Ataque("drenadoras", 50, Tipo.PLANTA));
-        tauros.agregarAtaquePorNivel(2, new Ataque("drenadoras", 50, Tipo.PLANTA));
-        tauros.agregarAtaquePorNivel(2, new Ataque("drenadoras", 50, Tipo.PLANTA));
+        tauros.agregarAtaquePorNivel(2, new Ataque("golpe cabeza", 55, Tipo.PLANTA));
+        tauros.agregarAtaquePorNivel(3, new Ataque("doble filo", 70, Tipo.PLANTA));
+        tauros.agregarAtaquePorNivel(4, new Ataque("a bocajarro", 110, Tipo.PLANTA));
         lista.add(tauros);
         Pokemon tyrogue = new Pokemon(
                 "tyrogue", Tipo.LUCHA, 35, 35, 35, 35, 1
         );
         tyrogue.agregarAtaque(
-                new Ataque("abocajarro", 88, Tipo.LUCHA)
+                new Ataque("amago", 30, Tipo.LUCHA)
         );
-        tyrogue.agregarAtaquePorNivel(2, new Ataque("paliza", 50, Tipo.LUCHA));
-        tyrogue.agregarAtaquePorNivel(2, new Ataque("paliza", 50, Tipo.LUCHA));
-        tyrogue.agregarAtaquePorNivel(2, new Ataque("paliza", 50, Tipo.LUCHA));
+        tyrogue.agregarAtaquePorNivel(2, new Ataque("ultra puño", 50, Tipo.LUCHA));
+        tyrogue.agregarAtaquePorNivel(3, new Ataque("deteccion", 70, Tipo.LUCHA));
+        tyrogue.agregarAtaquePorNivel(4, new Ataque("puño certero", 99, Tipo.LUCHA));
         tyrogue.evolucion = "hitmonchan";
         tyrogue.nivelEvolucion = 2;
         lista.add(tyrogue);
@@ -442,11 +536,11 @@ public class Main {
                 "pancham", Tipo.LUCHA, 67, 82, 62, 43, 1
         );
         pancham.agregarAtaque(
-                new Ataque("abocajarro", 88, Tipo.LUCHA)
+                new Ataque("tacleada", 35, Tipo.LUCHA)
         );
-        pancham.agregarAtaquePorNivel(2, new Ataque("paliza", 50, Tipo.LUCHA));
-        pancham.agregarAtaquePorNivel(2, new Ataque("paliza", 50, Tipo.LUCHA));
-        pancham.agregarAtaquePorNivel(2, new Ataque("paliza", 50, Tipo.LUCHA));
+        pancham.agregarAtaquePorNivel(2, new Ataque("provocacion", 60, Tipo.LUCHA));
+        pancham.agregarAtaquePorNivel(3, new Ataque("triturar", 76, Tipo.LUCHA));
+        pancham.agregarAtaquePorNivel(4, new Ataque("enfado", 100, Tipo.LUCHA));
         pancham.evolucion = "pangoro";
         pancham.nivelEvolucion = 2;
         lista.add(pancham);
@@ -455,11 +549,11 @@ public class Main {
                 "zorua", Tipo.SINIESTRO, 40, 65, 40, 65, 1
         );
         zorua.agregarAtaque(
-                new Ataque("garra umbria", 88, Tipo.SINIESTRO)
+                new Ataque("tajo umbrio", 25, Tipo.SINIESTRO)
         );
-        zorua.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
-        zorua.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
-        zorua.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
+        zorua.agregarAtaquePorNivel(2, new Ataque("tormento", 66, Tipo.SINIESTRO));
+        zorua.agregarAtaquePorNivel(3, new Ataque("desarme", 88, Tipo.SINIESTRO));
+        zorua.agregarAtaquePorNivel(4, new Ataque("juego sucio", 110, Tipo.SINIESTRO));
         zorua.evolucion = "zoroark";
         zorua.nivelEvolucion = 2;
         lista.add(zorua);
@@ -483,19 +577,19 @@ public class Main {
                         Tipo.SINIESTRO
                 )
         );
-        absol.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
-        absol.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
-        absol.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
+        absol.agregarAtaquePorNivel(2, new Ataque("sombra vil", 60, Tipo.SINIESTRO));
+        absol.agregarAtaquePorNivel(3, new Ataque("garra sombre", 65, Tipo.SINIESTRO));
+        absol.agregarAtaquePorNivel(4, new Ataque("premonicion", 80, Tipo.SINIESTRO));
         lista.add(absol);
         Pokemon inkay = new Pokemon(
                 "inkay", Tipo.SINIESTRO, 53, 54, 53, 45, 1
         );
         inkay.agregarAtaque(
-                new Ataque("garra umbria", 88, Tipo.SINIESTRO)
+                new Ataque("picotazo", 26, Tipo.SINIESTRO)
         );
-        inkay.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
-        inkay.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
-        inkay.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
+        inkay.agregarAtaquePorNivel(2, new Ataque("llanto falso", 39, Tipo.SINIESTRO));
+        inkay.agregarAtaquePorNivel(3, new Ataque("reversion", 50, Tipo.SINIESTRO));
+        inkay.agregarAtaquePorNivel(4, new Ataque("hipnosis", 109, Tipo.SINIESTRO));
         inkay.evolucion = "malamar";
         inkay.nivelEvolucion = 2;
         lista.add(inkay);
@@ -514,24 +608,24 @@ public class Main {
         chiyu.agregarAtaque(
 
                 new Ataque(
-                        "pulso oscuro",
+                        "vendetta",
                         35,
                         Tipo.SINIESTRO
                 )
         );
-        chiyu.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
-        chiyu.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
-        chiyu.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
+        chiyu.agregarAtaquePorNivel(2, new Ataque("rayo confuso", 58, Tipo.SINIESTRO));
+        chiyu.agregarAtaquePorNivel(3, new Ataque("legado", 70, Tipo.SINIESTRO));
+        chiyu.agregarAtaquePorNivel(4, new Ataque("sofoco", 90, Tipo.SINIESTRO));
         lista.add(chiyu);
         Pokemon gothita = new Pokemon(
                 "gothita", Tipo.PSIQUICO, 45, 30, 50, 45, 1
         );
         gothita.agregarAtaque(
-                new Ataque("cabezaso_zen", 88, Tipo.PSIQUICO)
+                new Ataque("cabezaso zen", 35, Tipo.PSIQUICO)
         );
         gothita.agregarAtaquePorNivel(2, new Ataque("psicorayo", 50, Tipo.PSIQUICO));
-        gothita.agregarAtaquePorNivel(2, new Ataque("psicorayo", 50, Tipo.PSIQUICO));
-        gothita.agregarAtaquePorNivel(2, new Ataque("psicorayo", 50, Tipo.PSIQUICO));
+        gothita.agregarAtaquePorNivel(3, new Ataque("zona magica", 70, Tipo.PSIQUICO));
+        gothita.agregarAtaquePorNivel(4, new Ataque("encanto", 100, Tipo.PSIQUICO));
         gothita.evolucion = "gothorita";
         gothita.nivelEvolucion = 2;
         gothita.evolucion2 = "gothitelle";
@@ -542,11 +636,11 @@ public class Main {
                 "flittle", Tipo.PSIQUICO, 30,35, 30,75,1
         );
         flittle.agregarAtaque(
-                new Ataque("cabezaso_zen", 88,Tipo.PSIQUICO)
+                new Ataque("ojitos tiernos", 15,Tipo.PSIQUICO)
         );
-        flittle.agregarAtaquePorNivel(2, new Ataque("psicorayo", 50, Tipo.PSIQUICO));
-        flittle.agregarAtaquePorNivel(2, new Ataque("psicorayo", 50, Tipo.PSIQUICO));
-        flittle.agregarAtaquePorNivel(2, new Ataque("psicorayo", 50, Tipo.PSIQUICO));
+        flittle.agregarAtaquePorNivel(2, new Ataque("fotocolision", 60, Tipo.PSIQUICO));
+        flittle.agregarAtaquePorNivel(3, new Ataque("pico taladro", 65, Tipo.PSIQUICO));
+        flittle.agregarAtaquePorNivel(4, new Ataque("psiquico", 90, Tipo.PSIQUICO));
         flittle.evolucion = "esphatra";
         flittle.nivelEvolucion = 2;
         lista.add(flittle);
@@ -555,11 +649,11 @@ public class Main {
                 "charcadet", Tipo.PSIQUICO, 40,50, 40,35,1
         );
         charcadet.agregarAtaque(
-                new Ataque("cabezaso_zen", 88,Tipo.PSIQUICO)
+                new Ataque("paz mental", 20,Tipo.PSIQUICO)
         );
-        charcadet.agregarAtaquePorNivel(2, new Ataque("psicorayo", 50, Tipo.PSIQUICO));
-        charcadet.agregarAtaquePorNivel(2, new Ataque("psicorayo", 50, Tipo.PSIQUICO));
-        charcadet.agregarAtaquePorNivel(2, new Ataque("psicorayo", 50, Tipo.PSIQUICO));
+        charcadet.agregarAtaquePorNivel(2, new Ataque("aura esfera", 45, Tipo.PSIQUICO));
+        charcadet.agregarAtaquePorNivel(3, new Ataque("malicioso", 60, Tipo.PSIQUICO));
+        charcadet.agregarAtaquePorNivel(4, new Ataque("giro fuego", 85, Tipo.PSIQUICO));
         charcadet.evolucion = "armarouge";
         charcadet.nivelEvolucion = 2;
         lista.add(charcadet);
@@ -567,22 +661,22 @@ public class Main {
                 "necrozma", Tipo.PSIQUICO, 97, 107, 101, 79, 1
         );
         necrozma.agregarAtaque(
-                new Ataque("cabezaso_zen", 88, Tipo.PSIQUICO)
+                new Ataque("garra mental", 40, Tipo.PSIQUICO)
         );
-        necrozma.agregarAtaquePorNivel(2, new Ataque("psicorayo", 50, Tipo.PSIQUICO));
-        necrozma.agregarAtaquePorNivel(2, new Ataque("psicorayo", 50, Tipo.PSIQUICO));
-        necrozma.agregarAtaquePorNivel(2, new Ataque("psicorayo", 50, Tipo.PSIQUICO));
+        necrozma.agregarAtaquePorNivel(2, new Ataque("poder reserva", 50, Tipo.PSIQUICO));
+        necrozma.agregarAtaquePorNivel(3, new Ataque("gravedad", 68, Tipo.PSIQUICO));
+        necrozma.agregarAtaquePorNivel(4, new Ataque("laser prisma", 100, Tipo.PSIQUICO));
         lista.add(necrozma);
 
         Pokemon poochyena = new Pokemon(
                 "poochyena", Tipo.SINIESTRO, 35, 55, 35, 35, 1
         );
         poochyena.agregarAtaque(
-                new Ataque("garra umbria", 88, Tipo.SINIESTRO)
+                new Ataque("ladron", 30, Tipo.SINIESTRO)
         );
-        poochyena.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
-        poochyena.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
-        poochyena.agregarAtaquePorNivel(2, new Ataque("señuelo", 50, Tipo.SINIESTRO));
+        poochyena.agregarAtaquePorNivel(2, new Ataque("mofa", 50, Tipo.SINIESTRO));
+        poochyena.agregarAtaquePorNivel(3, new Ataque("buena baza", 57, Tipo.SINIESTRO));
+        poochyena.agregarAtaquePorNivel(4, new Ataque("golpe bajo", 80, Tipo.SINIESTRO));
         poochyena.evolucion = "mightyena";
         poochyena.nivelEvolucion = 2;
         lista.add(poochyena);
@@ -658,6 +752,108 @@ public class Main {
         return equipo;
     }
 
+    public static int cambiarPokemon(
+
+            ArrayList<Pokemon>
+                    equipo,
+
+            int actual) {
+
+        System.out.println(
+                "\nELIGE POKEMON"
+        );
+
+        for (int i = 0;
+             i < equipo.size();
+             i++) {
+
+            Pokemon p =
+                    equipo.get(i);
+
+            System.out.println(
+
+                    (i + 1)
+                            + ". "
+                            + p.nombre
+                            + " HP: "
+                            + p.hp
+            );
+        }
+
+        int opcion =
+                sc.nextInt() - 1;
+
+        // VALIDAR
+
+        if (opcion >= 0
+                &&
+                opcion < equipo.size()
+                &&
+                equipo.get(opcion).hp > 0
+                &&
+                opcion != actual) {
+
+            System.out.println(
+
+                    "CAMBIAS A "
+                            + equipo.get(opcion).nombre
+            );
+
+            return opcion;
+        }
+
+        System.out.println(
+                "NO SE PUDO CAMBIAR"
+        );
+
+        return actual;
+    }
+// ==========================
+// REPARTIR EXPERIENCIA
+// ==========================
+
+    public static void repartirExperiencia(
+
+            ArrayList<Pokemon>
+                    equipo,
+
+            int expTotal) {
+
+        // CONTAR POKEMON VIVOS
+
+        int vivos = 0;
+
+        for (Pokemon p : equipo) {
+
+            if (p.hp > 0) {
+
+                vivos++;
+            }
+        }
+
+        // EVITAR DIVISION ENTRE 0
+
+        if (vivos == 0) {
+
+            return;
+        }
+
+        // EXPERIENCIA PARA CADA UNO
+
+        int expIndividual =
+                expTotal / vivos;
+
+        // DAR EXPERIENCIA
+
+        for (Pokemon p : equipo) {
+
+            if (p.hp > 0) {
+                p.ganarExperiencia(
+                        expIndividual
+                );
+            }
+        }
+    }
 
     // ==========================
 // LIGA IA
@@ -698,7 +894,7 @@ public class Main {
             ArrayList<Pokemon>
                     equipoIA =
                     elegirEquipoIA(
-                            pokedex
+                            pokedex, ronda
                     );
 
             // BATALLA
@@ -739,8 +935,6 @@ public class Main {
             );
         }
 
-        // GANAR
-
         System.out.println(
                 "\nGANASTE LA LIGA"
         );
@@ -771,11 +965,23 @@ public class Main {
     public static ArrayList<Pokemon>
     elegirEquipoIA(
             ArrayList<Pokemon>
-                    pokedex) {
+                     pokedex, int ronda) {
 
         ArrayList<Pokemon>
                 ia =
                 new ArrayList<>();
+
+        // NIVEL SEGUN RONDA
+
+        int nivelIA =
+                ronda * 2;
+
+        // MAXIMO 50
+
+        if (nivelIA > 50) {
+
+            nivelIA = 50;
+        }
 
         for (int i = 0;
              i < 6;
@@ -789,6 +995,12 @@ public class Main {
                                     pokedex.size()
                             )
                     ).copiar();
+
+            // SUBIR NIVEL
+
+            copia.subirNivelIA(
+                    nivelIA
+            );
 
             ia.add(copia);
         }
@@ -862,6 +1074,28 @@ public class Main {
             // ATAQUES
 
             System.out.println(
+                    "\n1. Atacar"
+            );
+
+            System.out.println(
+                    "2. Cambiar Pokemon"
+            );
+
+            int accion =
+                    sc.nextInt();
+            // CAMBIAR
+
+            if (accion == 2) {
+
+                indiceJugador =
+                        cambiarPokemon(
+                                jugador,
+                                indiceJugador
+                        );
+
+                continue;
+            }
+            System.out.println(
                     "\nELIGE ATAQUE"
             );
 
@@ -887,34 +1121,7 @@ public class Main {
                 continue;
             }
 
-            // JUGADOR ATACA
-
-            actualJugador.atacar(
-                    actualEnemigo,
-                    opcionAtaque
-            );
-
-            // DERROTA IA
-
-            if (actualEnemigo.hp <= 0) {
-
-                System.out.println(
-
-                        actualEnemigo.nombre
-                                + " derrotado"
-                );
-
-                actualJugador
-                        .ganarExperiencia(
-                                120
-                        );
-
-                indiceEnemigo++;
-
-                continue;
-            }
-
-            // IA ATACA
+            // ATAQUE IA
 
             int ataqueIA =
 
@@ -925,12 +1132,81 @@ public class Main {
                                     .size()
                     );
 
-            actualEnemigo.atacar(
-                    actualJugador,
-                    ataqueIA
-            );
+// ==========================
+// VELOCIDAD
+// ==========================
 
-            // DERROTA JUGADOR
+// JUGADOR MAS RAPIDO
+
+            if (actualJugador.velocidad
+                    >=
+                    actualEnemigo.velocidad) {
+
+                // JUGADOR ATACA
+
+                actualJugador.atacar(
+                        actualEnemigo,
+                        opcionAtaque
+                );
+
+                // ENEMIGO SOBREVIVE
+
+                if (actualEnemigo.hp > 0) {
+
+                    actualEnemigo.atacar(
+                            actualJugador,
+                            ataqueIA
+                    );
+                }
+            }
+
+// IA MAS RAPIDA
+
+            else {
+
+                // IA ATACA
+
+                actualEnemigo.atacar(
+                        actualJugador,
+                        ataqueIA
+                );
+
+                // JUGADOR SOBREVIVE
+
+                if (actualJugador.hp > 0) {
+
+                    actualJugador.atacar(
+                            actualEnemigo,
+                            opcionAtaque
+                    );
+                }
+            }
+
+// ==========================
+// DERROTAS
+// ==========================
+
+// IA DERROTADA
+
+            if (actualEnemigo.hp <= 0) {
+
+                System.out.println(
+
+                        actualEnemigo.nombre
+                                + " derrotado"
+                );
+
+                repartirExperiencia(
+                        jugador,
+                        120
+                );
+
+                indiceEnemigo++;
+
+                continue;
+            }
+
+// JUGADOR DERROTADO
 
             if (actualJugador.hp <= 0) {
 
