@@ -1,5 +1,5 @@
-
-public class Ataque {
+import java.io.Serializable;
+public class Ataque implements Serializable {
 
     String nombre;
     int poder;
@@ -14,4 +14,5 @@ public class Ataque {
         this.poder = poder;
         this.tipo = tipo;
     }
+
 }

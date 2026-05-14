@@ -1,8 +1,9 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Pokemon {
+public class Pokemon implements Serializable {
 
     String nombre;
 
@@ -20,6 +21,9 @@ public class Pokemon {
 
     String evolucion;
     int nivelEvolucion;
+
+    String evolucion2;
+    int NivelEvolucion2;
 
     ArrayList<Ataque> ataques =
             new ArrayList<>();
@@ -128,7 +132,29 @@ public class Pokemon {
 
             multiplicador = 2;
         }
+        if (ataqueUsado.tipo ==
+                Tipo.PSIQUICO &&
+                enemigo.tipo ==
+                        Tipo.LUCHA) {
 
+            multiplicador = 2;
+        }
+
+        if (ataqueUsado.tipo ==
+                Tipo.SINIESTRO &&
+                enemigo.tipo ==
+                        Tipo.PSIQUICO) {
+
+            multiplicador = 2;
+        }
+
+        if (ataqueUsado.tipo ==
+                Tipo.LUCHA &&
+                enemigo.tipo ==
+                        Tipo.SINIESTRO) {
+
+            multiplicador = 2;
+        }
         // STAB
 
         if (ataqueUsado.tipo ==
@@ -268,9 +294,13 @@ public class Pokemon {
 
     public void verificarEvolucion() {
 
-        if (evolucion != null &&
-                nivel >=
-                        nivelEvolucion) {
+        // PRIMERA EVOLUCION
+
+        if (evolucion != null
+                &&
+                nivel >= nivelEvolucion
+                &&
+                !nombre.equals(evolucion)) {
 
             System.out.println(
 
@@ -290,9 +320,38 @@ public class Pokemon {
             velocidad += 5;
 
             hp = hpMax;
+            evolucion = null;
+        }
+
+        // SEGUNDA EVOLUCION
+
+        else if (evolucion2 != null
+                &&
+                nivel >= NivelEvolucion2
+                &&
+                !nombre.equals(evolucion2)) {
+
+            System.out.println(
+
+                    nombre +
+                            " evolucionó a "
+                            + evolucion2
+            );
+
+            nombre = evolucion2;
+
+            hpMax += 50;
+
+            ataque += 20;
+
+            defensa += 15;
+
+            velocidad += 10;
+
+            hp = hpMax;
+            evolucion2= null;
         }
     }
-
     // ==========================
     // MOSTRAR ATAQUES
     // ==========================
@@ -310,5 +369,57 @@ public class Pokemon {
                             ataques.get(i).nombre
             );
         }
+    }
+    // ==========================
+// AGREGAR ESTO EN POKEMON
+// ==========================
+
+    public Pokemon copiar() {
+
+        Pokemon copia =
+
+                new Pokemon(
+
+                        nombre,
+
+                        tipo,
+
+                        hpMax,
+
+                        ataque,
+
+                        defensa,
+
+                        velocidad,
+
+                        nivel
+                );
+
+        copia.experiencia =
+                experiencia;
+
+        copia.evolucion =
+                evolucion;
+
+        copia.nivelEvolucion =
+                nivelEvolucion;
+
+        copia.NivelEvolucion2 = nivelEvolucion;
+        copia.evolucion2 = evolucion2;
+
+        // COPIAR ATAQUES
+
+        for (Ataque a : ataques) {
+
+            copia.agregarAtaque(a);
+        }
+
+        // COPIAR ATAQUES POR NIVEL
+
+        copia.ataquesPorNivel.putAll(
+                ataquesPorNivel
+        );
+
+        return copia;
     }
 }
